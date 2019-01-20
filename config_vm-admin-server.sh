@@ -2,9 +2,9 @@
 
 set -e
 
-SERVER_IP="192.168.1.198"
+SERVER_IP="192.168.1.199"
 
-DATASTORE="SSD1"
+DATASTORE="datastore1"
 
 NAME=$1
 ID=$2
@@ -13,7 +13,7 @@ ENV=$4
 
 ASCII=$(printf %x $ID)
 
-MAC="00:22:FF:02:00:$ASCII"
+MAC="00:22:FF:01:00:$ASCII"
 IP="192.168.1.$ID"
 
 stty -echo
@@ -32,12 +32,12 @@ sleep 20
 sh ./add_dhcp.sh $NAME $IP $MAC
 sh ./add_dns.sh $NAME $IP $ID
 
-stty -echo
-printf "Password to $IP: "
-read PASSWORD2
-stty echo
-printf "\n"
+# stty -echo
+# printf "Password to $IP: "
+# read PASSWORD2
+# stty echo
+# printf "\n"
 
-sh ./docker.sh $PASSWORD2 $IP
-sh ./rancher-register.sh $PASSWORD2 $NAME $IP $GROUP $ENV
+# sh ./docker.sh $PASSWORD2 $IP
+# sh ./rancher-register.sh $PASSWORD2 $NAME $IP $GROUP $ENV
 
